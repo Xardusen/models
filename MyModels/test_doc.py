@@ -1,7 +1,9 @@
-def aa(n):
-    a = n*n
-    b = 2*n
-    c = n/2
-    return a, b, c
-ss = aa(5)
-print(ss)
+
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+
+lis = [1, 5, 2, 3, 6]
+out = ListNode()

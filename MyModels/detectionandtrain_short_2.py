@@ -8,7 +8,7 @@ import math
 tf.logging.set_verbosity(tf.logging.INFO)
 '''
 In this file we get the feature data from matcher of the Image_L[0] with the rest of
-Image_L in the first 100 frames 
+Image_L in the first 1000 frames 
 '''
 
 def video_to_images(filename, n): # function to convert video to images
@@ -68,6 +68,72 @@ def cnn_model_fn(features, labels, mode):  # model_fn for classifier
         "accuracy": tf.metrics.accuracy(labels=labels, predictions=predictions["classes"])
     }
     return tf.estimator.EstimatorSpec(mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
+
+
+def predict_on_cnn(number):  # Compute feature and classes(probability) on a frame
+    predict_data = []
+    for point in kp_L[number]:
+        img = cv.getRectSubPix(Images_L[number], (16, 16), point.pt)
+        predict_data.append(cv.cvtColor(img, cv.COLOR_BGR2GRAY))
+    predict_data = np.array(predict_data, dtype=np.float32)
+
+    predict_input_fn = tf.estimator.inputs.numpy_input_fn(
+        x={"x": predict_data},
+        y=None,
+        num_epochs=1,
+        shuffle=False
+    )
+    predict = feature_classifier.predict(input_fn=predict_input_fn)
+    predict = list(result for result in predict)
+
+    predict_seq, predict_prob, predict_labels = [], [], []
+    for q in range(45):
+        predict_prob.append(0)
+        predict_labels.append(0)
+        predict_seq.append(0)
+    classes = []
+    for x in range(len(kp_L[number])):
+        classes.append(predict[x]['classes'])
+    classes = list(set(classes))
+
+    for k in range(len(kp_L[number])):
+        predict[k]["probabilities"] = max(predict[k]["probabilities"])
+        for w in range(45):
+            if predict[k]["classes"] == w and predict[k]["probabilities"] > predict_prob[w]:
+                predict_seq[w] = k
+                predict_labels[w] = predict[k]["classes"]
+                predict_prob[w] = predict[k]["probabilities"]
+    return  predict_seq, predict_labels, predict_prob, classes  # feature sequence in Image, feature label, feature probability, total classes
+
+
+def match_on_cnn(pred_1, number_1, pred_2, number_2):
+
+    # match12 = bf.match(des_L[0], des_L[1])
+    # match12 = match12[:45]
+    match12 = []
+    for prm in range(45):
+        init = cv.DMatch(0, 0, number_2)
+        match12.append(init)
+
+    for m in range(45):
+        distance = math.sqrt(pow(kp_L[number_1][pred_1[0][m]].pt[0] - kp_L[number_2][pred_2[0][m]].pt[0], 2) + pow(kp_L[number_1][pred_1[0][m]].pt[1] - kp_L[number_2][pred_2[0][m]].pt[1], 2))
+        if distance < 20:
+            if pred_1[2][m] > 0.9:
+                match12[m].queryIdx = pred_1[0][m]
+            else:
+                match12[m].queryIdx = -1
+            if pred_2[2][m] > 0.9:
+                match12[m].trainIdx = pred_2[0][m]
+            else:
+                match12[m].trainIdx = -1
+        else:
+            match12[m].queryIdx = -1
+            match12[m].trainIdx = -1
+    for ma in match12:
+        if ma.queryIdx == -1 or ma.trainIdx == -1:
+            match12 = match12[ : match12.index(ma)] + match12[match12.index(ma) + 1 : ]
+            # match12.remove(ma)
+    return match12
 
 
 Images_L = video_to_images("D:\QQBrowser\VideoData\\f5_dynamic_deint_L.avi", 1100) # read video
@@ -181,120 +247,12 @@ eval_input_fn = tf.estimator.inputs.numpy_input_fn(
 eval_results = feature_classifier.evaluate(input_fn=eval_input_fn)
 print(eval_results)
 
-
-
-def predict_on_cnn(number):  # Compute feature and classes(probability) on a frame
-    predict_data = []
-    for point in kp_L[number]:
-        img = cv.getRectSubPix(Images_L[number], (16, 16), point.pt)
-        predict_data.append(cv.cvtColor(img, cv.COLOR_BGR2GRAY))
-    predict_data = np.array(predict_data, dtype=np.float32)
-
-    predict_input_fn = tf.estimator.inputs.numpy_input_fn(
-        x={"x": predict_data},
-        y=None,
-        num_epochs=1,
-        shuffle=False
-    )
-    predict = feature_classifier.predict(input_fn=predict_input_fn)
-    predict = list(result for result in predict)
-
-    predict_seq, predict_prob, predict_labels = [], [], []
-    for q in range(45):
-        predict_prob.append(0)
-        predict_labels.append(0)
-        predict_seq.append(0)
-    classes = []
-    for x in range(len(kp_L[number])):
-        classes.append(predict[x]['classes'])
-    classes = list(set(classes))
-
-    for k in range(len(kp_L[number])):
-        predict[k]["probabilities"] = max(predict[k]["probabilities"])
-        for w in range(45):
-            if predict[k]["classes"] == w and predict[k]["probabilities"] > predict_prob[w]:
-                predict_seq[w] = k
-                predict_labels[w] = predict[k]["classes"]
-                predict_prob[w] = predict[k]["probabilities"]
-    return  predict_seq, predict_labels, predict_prob, classes  # feature sequence in Image, feature label, feature probability, total classes
-
-aa = predict_on_cnn(1003)
-bb = predict_on_cnn(1004)
-
-a1, b1, c1, d1 = aa[0], aa[1], aa[2], aa[3]
-a2, b2, c2, d2 = bb[0], bb[1], bb[2], bb[3]
-
-#============================================================
-match12 = bf.match(des_L[0], des_L[1])
-match12 = match12[:45]
-for m in range(45):
-    distance = math.sqrt(pow(kp_L[1003][a1[m]].pt[0] - kp_L[1004][a2[m]].pt[0], 2) + pow(kp_L[1003][a1[m]].pt[1] - kp_L[1004][a2[m]].pt[1], 2))
-    if distance < 20:
-        if c1[m] > 0.9:
-            match12[m].queryIdx = a1[m]
-        else:
-            match12[m].queryIdx = -1
-        if c2[m] > 0.9:
-            match12[m].trainIdx = a2[m]
-        else:
-            match12[m].trainIdx = -1
-    else:
-        match12[m].queryIdx = -1
-        match12[m].trainIdx = -1
-
-for ma in match12:
-    if ma.queryIdx == -1 or ma.trainIdx == -1:
-        match12 = match12[ : match12.index(ma)] + match12[match12.index(ma) + 1 : ]
-        # match12.remove(ma)
-print('Final matches : ', len(match12))
-
-qq = cv.drawMatches(Images_L[1003], kp_L[1003], Images_L[1004], kp_L[1004], match12, None)
+testImage1 = 1060
+testImage2 = 1061
+prediction_1 = predict_on_cnn(testImage1)  # aa = [predict_seq, predict_labels, predict_prob, classes]
+prediction_2 = predict_on_cnn(testImage2)
+matchn = match_on_cnn(prediction_1, testImage1, prediction_2, testImage2)
+print(len(matchn))
+qq = cv.drawMatches(Images_L[testImage1], kp_L[testImage1], Images_L[testImage2], kp_L[testImage2], matchn, None)
 cv.imshow('1', qq)
 cv.waitKey(0)
-
-# ======================================================================
-# def ss(predict_data_1):
-#     predict_data_1 = []  # frame 102 processing
-#     for point in kp_L[101]:
-#         img = cv.getRectSubPix(Images_L[101], (8, 8), point.pt)
-#         predict_data_1.append(cv.cvtColor(img, cv.COLOR_BGR2GRAY))
-#     predict_data_1 = np.array(predict_data_1, dtype=np.float32)
-#
-#     predict_input_fn_1 = tf.estimator.inputs.numpy_input_fn(
-#         x={"x": predict_data_1},
-#         y=None,
-#         num_epochs=1,
-#         shuffle=False
-#     )
-#     predict_1 = feature_classifier.predict(input_fn=predict_input_fn_1)
-#     predict_1 = list(item for item in predict_1)
-#
-#     predict_seq_1, predict_prob_1, predict_labels_1 = [], [], []
-#     for q in range(15):
-#         predict_prob_1.append(0)
-#         predict_labels_1.append(0)
-#         predict_seq_1.append(0)
-#
-#     for k in range(len(kp_L[101])):
-#         predict_1[k]["probabilities"] = max(predict_1[k]["probabilities"])
-#         for w in range(15):
-#             if predict_1[k]["classes"] == w and predict_1[k]["probabilities"] > predict_prob_1[w]:
-#                 predict_seq_1[w] = k  # used while matching
-#                 predict_labels_1[w] = predict_1[k]["classes"]
-#                 predict_prob_1[w] = predict_1[k]["probabilities"]
-#
-#     # print(predict_seq,'\n', predict_labels, '\n', predict_prob)
-#     # print('\n', predict_seq_1,'\n', predict_labels_1, '\n', predict_prob_1)
-#     match_101_102 = bf.match(des_L[100], des_L[101], None)
-#
-# location = []
-# for m in range(15):
-#     match_101_102[m].queryIdx = predict_seq[m]
-#     match_101_102[m].trainIdx = predict_seq_1[m]
-#     location.append(math.sqrt(pow(kp_L[100][predict_seq[m]].pt[0]-kp_L[101][predict_seq_1[m]].pt[0], 2)+pow(kp_L[100][predict_seq[m]].pt[1]-kp_L[101][predict_seq_1[m]].pt[1], 2)))
-#
-# ma101_2 = cv.drawMatches(Images_L[100], kp_L[100], Images_L[101], kp_L[101], match_101_102[12:13], None, flags=2)
-#
-# # cv.imshow('1', ma101_2)
-# print(location)
-# cv.waitKey(0)
