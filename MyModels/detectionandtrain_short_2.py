@@ -116,8 +116,8 @@ def match_on_cnn(pred_1, number_1, pred_2, number_2):
         match12.append(init)
 
     for m in range(45):
-        distance = math.sqrt(pow(kp_L[number_1][pred_1[0][m]].pt[0] - kp_L[number_2][pred_2[0][m]].pt[0], 2) + pow(kp_L[number_1][pred_1[0][m]].pt[1] - kp_L[number_2][pred_2[0][m]].pt[1], 2))
-        if distance < 20:
+        # distance = math.sqrt(pow(kp_L[number_1][pred_1[0][m]].pt[0] - kp_L[number_2][pred_2[0][m]].pt[0], 2) + pow(kp_L[number_1][pred_1[0][m]].pt[1] - kp_L[number_2][pred_2[0][m]].pt[1], 2))
+        # if distance < 20:
             if pred_1[2][m] > 0.9:
                 match12[m].queryIdx = pred_1[0][m]
             else:
@@ -126,14 +126,20 @@ def match_on_cnn(pred_1, number_1, pred_2, number_2):
                 match12[m].trainIdx = pred_2[0][m]
             else:
                 match12[m].trainIdx = -1
-        else:
-            match12[m].queryIdx = -1
-            match12[m].trainIdx = -1
+        # else:
+        #     match12[m].queryIdx = -1
+        #     match12[m].trainIdx = -1
     for ma in match12:
         if ma.queryIdx == -1 or ma.trainIdx == -1:
             match12 = match12[ : match12.index(ma)] + match12[match12.index(ma) + 1 : ]
             # match12.remove(ma)
-    return match12
+
+    match12_pre = match12.copy()
+    for ma_pre in match12_pre:
+        distance = math.sqrt(pow(kp_L[number_1][ma_pre.queryIdx].pt[0] - kp_L[number_2][ma_pre.trainIdx].pt[0], 2) + pow(kp_L[number_1][ma_pre.queryIdx].pt[1] - kp_L[number_2][ma_pre.trainIdx].pt[1], 2))
+        if distance > 10:
+            match12_pre = match12_pre[:match12_pre.index(ma_pre)] + match12_pre[match12_pre.index(ma_pre) + 1 : ]
+    return match12, match12_pre, float(len(match12_pre))/float(len(match12))  # return match, match after refining, precision
 
 
 Images_L = video_to_images("D:\QQBrowser\VideoData\\f5_dynamic_deint_L.avi", 1100) # read video
@@ -247,12 +253,31 @@ eval_input_fn = tf.estimator.inputs.numpy_input_fn(
 eval_results = feature_classifier.evaluate(input_fn=eval_input_fn)
 print(eval_results)
 
-testImage1 = 1060
-testImage2 = 1061
-prediction_1 = predict_on_cnn(testImage1)  # aa = [predict_seq, predict_labels, predict_prob, classes]
-prediction_2 = predict_on_cnn(testImage2)
-matchn = match_on_cnn(prediction_1, testImage1, prediction_2, testImage2)
-print(len(matchn))
-qq = cv.drawMatches(Images_L[testImage1], kp_L[testImage1], Images_L[testImage2], kp_L[testImage2], matchn, None)
-cv.imshow('1', qq)
-cv.waitKey(0)
+sum_orb, sum_cnn, types_cnn = 0, 0, 0
+for test in range(1000, 1099):
+    match_orb = bf.match(des_L[test], des_L[test + 1])
+    match_orb_pre = match_orb.copy()
+    for ma_pre in match_orb_pre:
+        distance = math.sqrt(
+            pow(kp_L[test][ma_pre.queryIdx].pt[0] - kp_L[test + 1][ma_pre.trainIdx].pt[0], 2) + pow(kp_L[test][ma_pre.queryIdx].pt[1] - kp_L[test + 1][ma_pre.trainIdx].pt[1], 2))
+        if distance > 20:
+            match12_pre = match_orb_pre[:match_orb_pre.index(ma_pre)] + match_orb_pre[match_orb_pre.index(ma_pre) + 1:]
+    sum_orb += float(len(match_orb_pre))/float(len(match_orb))
+
+    match_cnn = match_on_cnn(predict_on_cnn(test), test, predict_on_cnn(test + 1), test + 1)
+    sum_cnn += match_cnn[2]
+    types_cnn += len(predict_on_cnn(test)[3])
+
+    print(test)
+print(sum_orb/99, sum_cnn/99, types_cnn/99)
+
+# while True:  # test on input certain frames
+#     testImage1 = int(input('first frame : '))
+#     testImage2 = int(input('second frame : '))
+#     prediction_1 = predict_on_cnn(testImage1)  # aa = [predict_seq, predict_labels, predict_prob, classes]
+#     prediction_2 = predict_on_cnn(testImage2)
+#     matchn = match_on_cnn(prediction_1, testImage1, prediction_2, testImage2)
+#     print(len(matchn[0]), len(matchn[1]), matchn[2])
+#     qq = cv.drawMatches(Images_L[testImage1], kp_L[testImage1], Images_L[testImage2], kp_L[testImage2], matchn[0], None)
+#     cv.imshow('1', qq)
+#     cv.waitKey(0)
