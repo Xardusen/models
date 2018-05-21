@@ -40,6 +40,7 @@ def cnn_model_fn(features, labels, mode):  # model_fn for classifier
         activation=tf.nn.relu
     )
     pool2 = tf.layers.max_pooling2d(inputs=conv2, pool_size=[2, 2], strides=2)  # input : [batch_size, 8, 8, 64] / output : [batch_size, 4, 4, 64]
+
     pool2_flat = tf.reshape(pool2, [-1, 4* 4* 64])  # input : [batch_size, 4, 4, 64] / output : [batch_size, 4 * 4 * 64]
 
     dense = tf.layers.dense(inputs=pool2_flat, units=1024, activation=tf.nn.relu)  # input : [batch_size, 4 * 4 * 64] / output : [batch_size, 1024]
@@ -137,13 +138,13 @@ def match_on_cnn(pred_1, number_1, pred_2, number_2):
     match12_pre = match12.copy()
     for ma_pre in match12_pre:
         distance = math.sqrt(pow(kp_L[number_1][ma_pre.queryIdx].pt[0] - kp_L[number_2][ma_pre.trainIdx].pt[0], 2) + pow(kp_L[number_1][ma_pre.queryIdx].pt[1] - kp_L[number_2][ma_pre.trainIdx].pt[1], 2))
-        if distance > 10:
+        if distance > 5:
             match12_pre = match12_pre[:match12_pre.index(ma_pre)] + match12_pre[match12_pre.index(ma_pre) + 1 : ]
     return match12, match12_pre, float(len(match12_pre))/float(len(match12))  # return match, match after refining, precision
 
 
-Images_L = video_to_images("D:\QQBrowser\VideoData\\f5_dynamic_deint_L.avi", 1100) # read video
-Images_R = video_to_images("D:\QQBrowser\VideoData\\f5_dynamic_deint_R.avi", 1100)
+Images_L = video_to_images("D:\QQBrowser\VideoData\\f5_dynamic_deint_L.avi", 1500) # read video
+Images_R = video_to_images("D:\QQBrowser\VideoData\\f5_dynamic_deint_R.avi", 1500)
 
 kernel_size = [] # blur
 for image in Images_L:
@@ -225,7 +226,7 @@ eva_labels = np.array(eva_labels, dtype=np.int32)
 
 
 feature_classifier = tf.estimator.Estimator(
-    model_fn=cnn_model_fn, model_dir="/tmp/feature_net_model/1000_frames_use16"
+    model_fn=cnn_model_fn, model_dir="/tmp/feature_net_model/1000_frames_use30000"
 )  # create the classifier
 
 tensor_to_log = {"probabilities": "softmax_tensor"}  # to show information while processing
@@ -240,7 +241,7 @@ logging_hook = tf.train.LoggingTensorHook(tensors=tensor_to_log, every_n_iter=50
 # )
 # feature_classifier.train(
 #     input_fn=train_input_fn,
-#     steps=24000,
+#     steps=30000,
 #     # hooks=[logging_hook]
 # )
 
@@ -253,31 +254,31 @@ eval_input_fn = tf.estimator.inputs.numpy_input_fn(
 eval_results = feature_classifier.evaluate(input_fn=eval_input_fn)
 print(eval_results)
 
-sum_orb, sum_cnn, types_cnn = 0, 0, 0
-for test in range(1000, 1099):
-    match_orb = bf.match(des_L[test], des_L[test + 1])
-    match_orb_pre = match_orb.copy()
-    for ma_pre in match_orb_pre:
-        distance = math.sqrt(
-            pow(kp_L[test][ma_pre.queryIdx].pt[0] - kp_L[test + 1][ma_pre.trainIdx].pt[0], 2) + pow(kp_L[test][ma_pre.queryIdx].pt[1] - kp_L[test + 1][ma_pre.trainIdx].pt[1], 2))
-        if distance > 20:
-            match12_pre = match_orb_pre[:match_orb_pre.index(ma_pre)] + match_orb_pre[match_orb_pre.index(ma_pre) + 1:]
-    sum_orb += float(len(match_orb_pre))/float(len(match_orb))
 
-    match_cnn = match_on_cnn(predict_on_cnn(test), test, predict_on_cnn(test + 1), test + 1)
-    sum_cnn += match_cnn[2]
-    types_cnn += len(predict_on_cnn(test)[3])
+# sum_orb, sum_cnn, types_cnn = 0, 0, 0  # calculating acc
+# for test in range(1000, 1099):
+#     match_orb = bf.match(des_L[test], des_L[test + 1])
+#     match_orb_pre = match_orb.copy()
+#     for ma_pre in match_orb_pre:
+#         distance = math.sqrt(pow(kp_L[test][ma_pre.queryIdx].pt[0] - kp_L[test + 1][ma_pre.trainIdx].pt[0], 2) + pow(kp_L[test][ma_pre.queryIdx].pt[1] - kp_L[test + 1][ma_pre.trainIdx].pt[1], 2))
+#         if distance > 5:
+#             match_orb_pre = match_orb_pre[:match_orb_pre.index(ma_pre)] + match_orb_pre[match_orb_pre.index(ma_pre) + 1:]
+#     sum_orb += float(len(match_orb_pre))/float(len(match_orb))
+#
+#     match_cnn = match_on_cnn(predict_on_cnn(test), test, predict_on_cnn(test + 1), test + 1)
+#     sum_cnn += match_cnn[2]
+#     types_cnn += len(predict_on_cnn(test)[3])
+#     print(test)
+# print(sum_orb/99, sum_cnn/99, types_cnn/99)
 
-    print(test)
-print(sum_orb/99, sum_cnn/99, types_cnn/99)
 
-# while True:  # test on input certain frames
-#     testImage1 = int(input('first frame : '))
-#     testImage2 = int(input('second frame : '))
-#     prediction_1 = predict_on_cnn(testImage1)  # aa = [predict_seq, predict_labels, predict_prob, classes]
-#     prediction_2 = predict_on_cnn(testImage2)
-#     matchn = match_on_cnn(prediction_1, testImage1, prediction_2, testImage2)
-#     print(len(matchn[0]), len(matchn[1]), matchn[2])
-#     qq = cv.drawMatches(Images_L[testImage1], kp_L[testImage1], Images_L[testImage2], kp_L[testImage2], matchn[0], None)
-#     cv.imshow('1', qq)
-#     cv.waitKey(0)
+while True:  # test on input certain frames
+    testImage1 = int(input('first frame : '))
+    testImage2 = int(input('second frame : '))
+    prediction_1 = predict_on_cnn(testImage1)  # aa = [predict_seq, predict_labels, predict_prob, classes]
+    prediction_2 = predict_on_cnn(testImage2)
+    matchn = match_on_cnn(prediction_1, testImage1, prediction_2, testImage2)
+    print(len(matchn[0]), len(matchn[1]), matchn[2])
+    qq = cv.drawMatches(Images_L[testImage1], kp_L[testImage1], Images_L[testImage2], kp_L[testImage2], matchn[0], None)
+    cv.imshow('1', qq)
+    cv.waitKey(0)
