@@ -14,27 +14,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="detectionandtrain_short_2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/detectionandtrain_short_2.py">
+      <file leaf-file-name="Train and Match on CNN.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Train and Match on CNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="274" column="38" selection-start-line="274" selection-start-column="38" selection-end-line="274" selection-end-column="38" />
+            <state relative-caret-position="2945">
+              <caret line="163" column="29" selection-start-line="163" selection-start-column="29" selection-end-line="163" selection-end-column="29" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
                 <element signature="e#388#789#0" />
-                <element signature="e#865#3059#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_doc.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test_doc.py">
+      <file leaf-file-name="Kp_Data_Generator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Kp_Data_Generator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="37" column="11" lean-forward="true" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
+            <state relative-caret-position="950">
+              <caret line="53" column="25" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
               <folding>
-                <element signature="e#0#16#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Match on CNN( for now).py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Match on CNN( for now).py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1342">
+              <caret line="220" column="17" lean-forward="true" selection-start-line="220" selection-start-column="17" selection-end-line="220" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -54,24 +65,31 @@
       <find>sparse</find>
       <find>predict_data</find>
       <find>point</find>
+      <find>bf</find>
+      <find>ma_pre</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/MNIST-data/CNN_MNIST.py" />
-        <option value="$PROJECT_DIR$/DetecteAndTrain.py" />
         <option value="$PROJECT_DIR$/detectandtrain_short.py" />
         <option value="$PROJECT_DIR$/Test_File.py" />
         <option value="$PROJECT_DIR$/CNN_MNIST.py" />
         <option value="$PROJECT_DIR$/detectionandtrain_short_2.py" />
+        <option value="$PROJECT_DIR$/DetecteAndTrain.py" />
+        <option value="$PROJECT_DIR$/Detection and Train.py" />
         <option value="$PROJECT_DIR$/test_doc.py" />
+        <option value="$PROJECT_DIR$/Convenient Use.py" />
+        <option value="$PROJECT_DIR$/Match on CNN.py" />
+        <option value="$PROJECT_DIR$/Kp_Data_Generator.py" />
+        <option value="$PROJECT_DIR$/Match on CNN( for now).py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="952" />
-    <option name="width" value="977" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="950" />
+    <option name="width" value="978" />
     <option name="height" value="1050" />
   </component>
   <component name="ProjectView">
@@ -122,8 +140,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test_doc">
-    <configuration name="CNN_MNIST" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.Match on CNN( for now)">
+    <configuration name="Convenient Use" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MyModels" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -135,13 +153,13 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CNN_MNIST.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Convenient Use.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="Test_File" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Detection and Train" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MyModels" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -153,13 +171,13 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="D:\Users\Xardusen\Documents\GitHub\models\MyModels\detectionandtrain_short_2.py" />
+      <option name="SCRIPT_NAME" value="D:\Users\Xardusen\Documents\GitHub\models\MyModels\Train and Match on CNN.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="detectandtrain_short" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Kp_Data_Generator" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MyModels" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -171,13 +189,13 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/detectandtrain_short.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Kp_Data_Generator.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="detectionandtrain_short_2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Match on CNN( for now)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MyModels" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -189,7 +207,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/detectionandtrain_short_2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Match on CNN( for now).py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -207,26 +225,26 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_doc.py" />
+      <option name="SCRIPT_NAME" value="D:\Users\Xardusen\Documents\GitHub\models\MyModels\Kp_Data_Generator.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list>
-      <item itemvalue="Python.Test_File" />
-      <item itemvalue="Python.detectandtrain_short" />
       <item itemvalue="Python.test_doc" />
-      <item itemvalue="Python.detectionandtrain_short_2" />
-      <item itemvalue="Python.CNN_MNIST" />
+      <item itemvalue="Python.Convenient Use" />
+      <item itemvalue="Python.Detection and Train" />
+      <item itemvalue="Python.Match on CNN( for now)" />
+      <item itemvalue="Python.Kp_Data_Generator" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Match on CNN( for now)" />
+        <item itemvalue="Python.Kp_Data_Generator" />
+        <item itemvalue="Python.Convenient Use" />
         <item itemvalue="Python.test_doc" />
-        <item itemvalue="Python.detectionandtrain_short_2" />
-        <item itemvalue="Python.CNN_MNIST" />
-        <item itemvalue="Python.Test_File" />
-        <item itemvalue="Python.detectandtrain_short" />
+        <item itemvalue="Python.Detection and Train" />
       </list>
     </recent_temporary>
   </component>
@@ -253,14 +271,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="762" y="0" width="781" height="840" extended-state="0" />
+    <frame x="760" y="0" width="782" height="840" extended-state="1" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4971591" weight="0.24664879" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4971591" weight="0.24563758" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32954547" />
       <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.47919464" side_tool="true" weight="0.32102272" />
       <window_info anchor="bottom" id="Version Control" order="1" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="10" visible="true" weight="0.3309659" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.52080536" weight="0.35227272" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3309659" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.52080536" visible="true" weight="0.35227272" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24966443" />
       <window_info anchor="bottom" id="Terminal" order="5" weight="0.328125" />
       <window_info id="Favorites" order="2" sideWeight="0.50284094" side_tool="true" weight="0.24697986" />
@@ -271,7 +290,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="4" />
+      <window_info anchor="bottom" id="Find" order="4" weight="0.32954547" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -284,11 +303,28 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="22" />
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="41" />
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="trans_2" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="setValue">
+      <expression>
+        <expression-string>140</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>4</expression-string>
         <language-id>Python</language-id>
@@ -297,115 +333,78 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test_doc.py">
+    <entry file="file://$PROJECT_DIR$/Match on CNN( for now).py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/detectionandtrain_short_2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2527">
-          <caret line="133" column="46" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="46" />
+        <state relative-caret-position="4047">
+          <caret line="217" column="32" lean-forward="true" selection-start-line="217" selection-start-column="32" selection-end-line="217" selection-end-column="32" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#388#789#0" />
-            <element signature="e#865#3059#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_doc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/detectionandtrain_short_2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2527">
-          <caret line="133" column="46" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#388#789#0" />
-            <element signature="e#865#3059#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_doc.py">
+    <entry file="file://$PROJECT_DIR$/Kp_Data_Generator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="5" column="11" lean-forward="true" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detectionandtrain_short_2.py">
+    <entry file="file://$PROJECT_DIR$/Train and Match on CNN.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4959">
           <caret line="261" column="23" selection-start-line="261" selection-start-column="22" selection-end-line="261" selection-end-column="23" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#388#789#0" />
-            <element signature="e#865#3059#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_doc.py">
+    <entry file="file://$PROJECT_DIR$/Kp_Data_Generator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="494">
           <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detectionandtrain_short_2.py">
+    <entry file="file://$PROJECT_DIR$/Train and Match on CNN.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4807">
           <caret line="253" column="6" selection-start-line="253" selection-end-line="253" selection-end-column="6" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#388#789#0" />
-            <element signature="e#865#3059#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_doc.py">
+    <entry file="file://$PROJECT_DIR$/Kp_Data_Generator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detectionandtrain_short_2.py">
+    <entry file="file://$PROJECT_DIR$/Train and Match on CNN.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1862">
           <caret line="98" column="12" selection-start-line="98" selection-start-column="12" selection-end-line="98" selection-end-column="12" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#388#789#0" />
-            <element signature="e#865#3059#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_doc.py">
+    <entry file="file://$PROJECT_DIR$/Kp_Data_Generator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="15" column="30" lean-forward="true" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DetecteAndTrain.py">
+    <entry file="file://$PROJECT_DIR$/Convenient Use.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
           <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
@@ -419,14 +418,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detectionandtrain_short_2.py">
+    <entry file="file://$PROJECT_DIR$/Train and Match on CNN.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="13" column="12" lean-forward="true" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#388#789#0" />
-            <element signature="e#865#3059#0" />
           </folding>
         </state>
       </provider>
@@ -578,20 +576,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="1657" selection-start-line="1657" selection-end-line="1657" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python36/Lib/site-packages/tensorflow/python/estimator/estimator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -634,20 +618,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detectandtrain_short.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="35" column="21" lean-forward="true" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DetecteAndTrain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/-1184660488/cv2/cv2/BFMatcher.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
@@ -655,49 +625,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CNN_MNIST.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="158" column="3" selection-start-line="158" selection-start-column="3" selection-end-line="158" selection-end-column="3" />
-          <folding>
-            <element signature="e#936#4361#0" />
-            <element signature="e#4389#5666#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/-1184660488/cv2/cv2/Feature2D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="97" column="8" selection-start-line="97" selection-start-column="8" selection-end-line="97" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/-1184660488/cv2/cv2/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="4789" column="25" lean-forward="true" selection-start-line="4788" selection-start-column="28" selection-end-line="4789" selection-end-column="25" />
+          <caret line="4769" column="35" lean-forward="true" selection-start-line="4769" selection-start-column="35" selection-end-line="4769" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detectionandtrain_short_2.py">
+    <entry file="file://$PROJECT_DIR$/data.npy" />
+    <entry file="file://C:/Python36/Lib/site-packages/werkzeug/datastructures.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="274" column="38" selection-start-line="274" selection-start-column="38" selection-end-line="274" selection-end-column="38" />
+        <state relative-caret-position="-332">
+          <caret line="2721" column="38" selection-start-line="2721" selection-start-column="38" selection-end-line="2721" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detectandtrain_short.py" />
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/-1184660488/cv2/cv2/Feature2D.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="97" column="42" selection-start-line="97" selection-start-column="38" selection-end-line="97" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="1663" selection-start-line="1663" selection-end-line="1663" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python36/Lib/site-packages/numpy/lib/npyio.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="530" column="14" selection-start-line="530" selection-start-column="11" selection-end-line="530" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CNN_MNIST.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="77" column="55" selection-start-line="77" selection-start-column="51" selection-end-line="77" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Train and Match on CNN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2945">
+          <caret line="163" column="29" selection-start-line="163" selection-start-column="29" selection-end-line="163" selection-end-column="29" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#388#789#0" />
-            <element signature="e#865#3059#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_doc.py">
+    <entry file="file://$PROJECT_DIR$/Kp_Data_Generator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="37" column="11" lean-forward="true" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
+        <state relative-caret-position="950">
+          <caret line="53" column="25" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Match on CNN( for now).py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1342">
+          <caret line="220" column="17" lean-forward="true" selection-start-line="220" selection-start-column="17" selection-end-line="220" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
