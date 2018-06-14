@@ -112,7 +112,7 @@ def main():
     eval_labels = np.array(eval_labels, dtype=np.int32)
 
     print('Train data amount : ', len(train_data), len(train_labels), '\nEvaluating data amount : ', len(eval_data), len(eval_labels))
-    np.savez('kp_data2.npz', train_data=train_data, train_labels=train_labels, eval_data=eval_data, eval_labels=eval_labels)
+    # np.savez('kp_data2.npz', train_data=train_data, train_labels=train_labels, eval_data=eval_data, eval_labels=eval_labels)
 
 if __name__ == '__main__':
     main()
