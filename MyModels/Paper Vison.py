@@ -262,7 +262,7 @@ time_mid = time.clock()
 
 bf = cv.BFMatcher_create(cv.NORM_HAMMING)
 sum_orb, sum_cnn, types_cnn = 0, 0, 0  # calculating acc
-for test in range(500, 599):
+for test in range(600, 699):
     match_orb = bf.match(des_L[test], des_L[test + 1])
     match_orb_pre = match_orb.copy()
     for ma_pre in match_orb_pre:
@@ -286,8 +286,22 @@ print(sum_orb/99, sum_cnn/99, types_cnn/99)
 #     matchn = match_on_cnn(prediction_1, testImage1, prediction_2, testImage2)
 #     print(len(matchn[0]), len(matchn[1]), matchn[2])
 #     qq = cv.drawMatches(Images_L[testImage1], kp_L[testImage1], Images_L[testImage2], kp_L[testImage2], matchn[0], None, flags=2)
-#     cv.imshow('1', qq)
+#     cv.imshow('CNN based', qq)
 #     cv.waitKey(0)
 
-time_end = time.clock()
-print('training time : {}\nevaluating time : {}'.format((time_mid - time_start), (time_end - time_mid)))
+# timing1 = time.clock()
+# bf = cv.BFMatcher_create(cv.NORM_HAMMING)
+# resultOne = []
+# for test in range(1000):  # calculating running time
+#     m_temp = bf.match(des_L[test], des_L[test + 1])
+#     resultOne.append(m_temp)
+# timing2 = time.clock()
+# resultTwo = []
+# for test2 in range(1000):
+#     m_cnn = match_on_cnn(predict_on_cnn(test2), test2, predict_on_cnn(test +1), test +1)
+#     resultTwo.append(m_cnn[0])
+# timing3 = time.clock()
+# print("orb 1000 frames : {}\ncnn 1000 frames : {}".format((timing2 - timing1), (timing3 - timing2)))
+
+# time_end = time.clock()
+# print('training time : {}\nevaluating time : {}'.format((time_mid - time_start), (time_end - time_mid)))
