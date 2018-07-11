@@ -181,7 +181,7 @@ for x in accuracy:
 print('Data and labels accuracy :', averageAccuracy/100)
 
 # ------------------------------------------- cnn model ---------------------------------------
-featureClassifier = tf.estimator.Estimator(model_fn=cnn_model_fn, model_dir="/temp/feature_net_model/cnnBased_2")
+featureClassifier = tf.estimator.Estimator(model_fn=cnn_model_fn, model_dir="/temp/feature_net_model/cnnBased_1")
 tensor_to_log = {"probabilities": "softmax_tensor"}
 logging_hook = tf.train.LoggingTensorHook(tensors=tensor_to_log, every_n_iter=500)
 
