@@ -6,6 +6,9 @@ import tensorflow as tf
 import numpy as np
 
 
+tf.logging.set_verbosity(tf.logging.INFO)
+
+
 def cnn_model_fn(features, labels, mode):  # model_fn for classifier
     input_layer = tf.reshape(features["x"], [-1, 16, 16, 1])
     conv1 = tf.layers.conv2d(  # input : [batch_size, 8, 8, 1] / output : [batch_size, 8, 8, 32]
@@ -56,79 +59,55 @@ def cnn_model_fn(features, labels, mode):  # model_fn for classifier
 
 
 def predict_on_cnn(number):  # Compute feature and classes(probability) on a frame
-    predict_data = []
+    predictData = []
     for point in kp[number]:
         img = cv.getRectSubPix(images[number], (16, 16), point.pt)
-        predict_data.append(cv.cvtColor(img, cv.COLOR_BGR2GRAY))
-    predict_data = np.array(predict_data, dtype=np.float32)
+        predictData.append(cv.cvtColor(img, cv.COLOR_BGR2GRAY))
+    predictData = np.array(predictData, dtype=np.float32)
 
     predict_input_fn = tf.estimator.inputs.numpy_input_fn(
-        x={"x": predict_data},
+        x={"x": predictData},
         y=None,
         num_epochs=1,
         shuffle=False
     )
     predict = featureClassifier.predict(input_fn=predict_input_fn)
-    predict = list(result for result in predict)
+    predict = list(predict)
 
-    predict_seq, predict_prob, predict_labels = [], [], []
-    for q in range(68):
-        predict_prob.append(0)
-        predict_labels.append(0)
-        predict_seq.append(0)
-    classes = []
-    for x in range(len(kp[number])):
-        classes.append(predict[x]['classes'])
-    classes = list(set(classes))
+    predictSequence, predictLabel, predictProbability = [], [], []
+    for __ in range(len(chosenIds)):
+        predictSequence.append(-1)
+        predictLabel.append(-1)
+        predictProbability.append(-1)
 
-    for k in range(len(kp[number])):
-        predict[k]["probabilities"] = max(predict[k]["probabilities"])
-        for w in range(68):
-            if predict[k]["classes"] == w and predict[k]["probabilities"] > predict_prob[w]:
-                predict_seq[w] = k
-                predict_labels[w] = predict[k]["classes"]
-                predict_prob[w] = predict[k]["probabilities"]
-    return  predict_seq, predict_labels, predict_prob, classes  # feature sequence in Image, feature label, feature probability, total classes
+    for kpNum in range(len(kp[number])):
+        kpProbability = max(predict[kpNum]["probabilities"])
+        kpClass = predict[kpNum]["classes"]
+        if kpProbability > predictProbability[kpClass]:
+            predictSequence[kpClass] = kpNum
+            predictLabel[kpClass] = kpClass
+            predictProbability[kpClass] = kpProbability
+    return  predictSequence, predictLabel, predictProbability  # feature sequence in Image, feature label, feature probability
 
 
-def match_on_cnn(pred_1, number_1, pred_2, number_2):
+def match_on_cnn(predictionOne, numberOne, predictionTwo, numberTwo):
+    matchOnCNN = []
+    for seq in range(len(chosenIds)):
+        if predictionOne[1][seq] != -1 and predictionTwo[1][seq] != -1 and predictionOne[2][seq] > 0.99 and predictionTwo[2][seq] > 0.99:
+            matchTemp = cv.DMatch(predictionOne[0][seq], predictionTwo[0][seq], numberTwo)
+            matchOnCNN.append(matchTemp)
 
-    # match12 = bf.match(des_L[0], des_L[1])
-    # match12 = match12[:45]
-    match12 = []
-    for prm in range(68):
-        init = cv.DMatch(0, 0, number_2)
-        match12.append(init)
-
-    for m in range(68):
-        # distance = math.sqrt(pow(kp_L[number_1][pred_1[0][m]].pt[0] - kp_L[number_2][pred_2[0][m]].pt[0], 2) + pow(kp_L[number_1][pred_1[0][m]].pt[1] - kp_L[number_2][pred_2[0][m]].pt[1], 2))
-        # if distance < 20:
-            if pred_1[2][m] > 0.9:
-                match12[m].queryIdx = pred_1[0][m]
-            else:
-                match12[m].queryIdx = -1
-            if pred_2[2][m] > 0.9:
-                match12[m].trainIdx = pred_2[0][m]
-            else:
-                match12[m].trainIdx = -1
-        # else:
-        #     match12[m].queryIdx = -1
-        #     match12[m].trainIdx = -1
-    for ma in match12:
-        if ma.queryIdx == -1 or ma.trainIdx == -1:
-            match12 = match12[ : match12.index(ma)] + match12[match12.index(ma) + 1 : ]
-            # match12.remove(ma)
-
-    match12_pre = match12.copy()
-    for ma_pre in match12_pre:
-        distance = pow(kp[number_1][ma_pre.queryIdx].pt[0] - kp[number_2][ma_pre.trainIdx].pt[0], 2) + pow(kp[number_1][ma_pre.queryIdx].pt[1] - kp[number_2][ma_pre.trainIdx].pt[1], 2)
-        if distance > 25:
-            match12_pre = match12_pre[:match12_pre.index(ma_pre)] + match12_pre[match12_pre.index(ma_pre) + 1 : ]
-    return match12, match12_pre, float(len(match12_pre))/float(len(match12))  # return match, match after refining, precision
+    refinedMatches = []
+    for item in matchOnCNN:
+        distance = (kp[numberOne][item.queryIdx].pt[0] - kp[numberTwo][item.trainIdx].pt[0]) ** 2 + (kp[numberOne][item.queryIdx].pt[1] - kp[numberTwo][item.trainIdx].pt[1]) ** 2
+        if distance <= 25:
+            refinedMatches.append(item)
+    matchAccuracy = len(refinedMatches)/len(matchOnCNN)
+    return matchOnCNN, refinedMatches, matchAccuracy  # return match, match after refining, precision
 
 
 # ---------------------------------generate init images, keyPoints and descriptions -----------------------
-images = video_to_images("D:\QQBrowser\VideoData\\f5_dynamic_deint_L.avi", 1000)
+images = video_to_images("D:\QQBrowser\VideoData\\f5_dynamic_deint_L.avi", 1500)
 kernelSize = []
 for __ in images:
     kernelSize.append((3, 3))
@@ -202,19 +181,21 @@ for x in accuracy:
 print('Data and labels accuracy :', averageAccuracy/100)
 
 # ------------------------------------------- cnn model ---------------------------------------
-featureClassifier = tf.estimator.Estimator(model_fn=cnn_model_fn, model_dir="/temp/feature_net_model/cnnBased_1")
+featureClassifier = tf.estimator.Estimator(model_fn=cnn_model_fn, model_dir="/temp/feature_net_model/cnnBased_2")
+tensor_to_log = {"probabilities": "softmax_tensor"}
+logging_hook = tf.train.LoggingTensorHook(tensors=tensor_to_log, every_n_iter=500)
 
-trainInputFn = tf.estimator.inputs.numpy_input_fn(
-    x={"x" : train_data},
-    y=train_labels,
-    batch_size=128,
-    num_epochs=None,
-    shuffle=True
-)
-featureClassifier.train(
-    input_fn=trainInputFn,
-    steps=30000,
-)
+# trainInputFn = tf.estimator.inputs.numpy_input_fn(
+#     x={"x" : train_data},
+#     y=train_labels,
+#     batch_size=128,
+#     num_epochs=None,
+#     shuffle=True
+# )
+# featureClassifier.train(
+#     input_fn=trainInputFn,
+#     steps=30000,
+# )
 
 evalInputFn = tf.estimator.inputs.numpy_input_fn(
     x={"x" : eval_data},
@@ -227,18 +208,18 @@ print(evalResult)
 
 #  ---------------------------------------matching result evaluate ------------------------------------
 
-sum_orb, sum_cnn, types_cnn = 0, 0, 0  # calculating acc
-for test in range(600, 699):
-    # match_orb = bf.match(des[test], des[test + 1])
-    # match_orb_pre = match_orb.copy()
-    # for ma_pre in match_orb_pre:
-    #     distance =pow(kp[test][ma_pre.queryIdx].pt[0] - kp[test + 1][ma_pre.trainIdx].pt[0], 2) + pow(kp[test][ma_pre.queryIdx].pt[1] - kp[test + 1][ma_pre.trainIdx].pt[1], 2)
-    #     if distance > 25:
-    #         match_orb_pre = match_orb_pre[:match_orb_pre.index(ma_pre)] + match_orb_pre[match_orb_pre.index(ma_pre) + 1:]
-    # sum_orb += float(len(match_orb_pre))/float(len(match_orb))
+# sum_orb, sum_cnn = 0, 0  # calculating acc
+# for test in range(101, 201):
+#     matchORB = bf.match(des[test], des[test + 1])
+#     counter = 0
+#     for matchO in matchORB:
+#         distance =(kp[test][matchO.queryIdx].pt[0] - kp[test + 1][matchO.trainIdx].pt[0]) ** 2 + (kp[test][matchO.queryIdx].pt[1] - kp[test + 1][matchO.trainIdx].pt[1]) ** 2
+#         if distance <= 25:
+#             counter += 1
+#     sum_orb += counter/len(matchORB)
+#
+#     matchCnn = match_on_cnn(predict_on_cnn(test), test, predict_on_cnn(test + 1), test + 1)
+#     sum_cnn += matchCnn[2]
+#     print(test)
+# print(sum_orb/100, sum_cnn/100)
 
-    match_cnn = match_on_cnn(predict_on_cnn(test), test, predict_on_cnn(test + 1), test + 1)
-    sum_cnn += match_cnn[2]
-    types_cnn += len(predict_on_cnn(test)[3])
-    print(test)
-print(sum_orb/99, sum_cnn/99, types_cnn/99)
